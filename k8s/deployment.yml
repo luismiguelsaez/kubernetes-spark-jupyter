@@ -116,15 +116,13 @@ spec:
                 name: jupyter-access
           volumeMounts:
             - name: config
-              mountPath: /etc/jupyter/
-            - mountPath: /data
-              name: data
+              mountPath: /etc/jupyter/jupyter_notebook_config.py
+              subPath: jupyter_notebook_config.py
       volumes:
         - name: config
           configMap:
             name: jupyter-notebook-config
-        - name: data
-          emptyDir: {}
+
 ---
 
 apiVersion: v1
