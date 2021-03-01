@@ -3,7 +3,7 @@ import pyspark
 
 conf = pyspark.SparkConf() \
     .setMaster('k8s://https://kubernetes.default.svc.cluster.local:443') \
-    .set("spark.kubernetes.container.image", "luismiguelsaez/spark:3.0.2-python") \
+    .set("spark.kubernetes.container.image", "spark-py:3.0.2") \
     .set("spark.kubernetes.namespace","jupyter") \
     .set("spark.kubernetes.authenticate.serviceAccountName","jupyter") \
     .set("spark.kubernetes.authenticate.driver.serviceAccountName","jupyter") \
