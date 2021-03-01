@@ -4,6 +4,7 @@ spark = SparkSession \
     .builder \
     .appName("SparkSessionTest") \
     .master('k8s://https://kubernetes.default.svc.cluster.local:443') \
+    .config("spark.submit.deployMode","cluster") \
     .config("spark.kubernetes.container.image", "spark-py:3.0.2") \
     .config("spark.kubernetes.namespace","jupyter") \
     .config("spark.kubernetes.authenticate.driver.serviceAccountName","jupyter") \
