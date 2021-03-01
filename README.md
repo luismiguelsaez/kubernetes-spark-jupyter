@@ -18,7 +18,7 @@ Client mode execution is described here:
 ### Create cluster ( https://kind.sigs.k8s.io/docs/user/ingress/#create-cluster )
 
 ```
-cat <<EOF | kind create cluster --config=-
+cat <<EOF | kind create cluster --name=jupyter-test --config=-
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
@@ -48,7 +48,7 @@ curl -sL https://apache.brunneis.com/spark/spark-3.0.2/spark-3.0.2-bin-hadoop2.7
 tar -xf spark-3.0.2-bin-hadoop2.7.tgz
 
 spark-3.0.2-bin-hadoop2.7/bin/docker-image-tool.sh -t 3.0.2 -p kubernetes/dockerfiles/spark/bindings/python/Dockerfile build
-kind load docker-image spark-py:3.0.2
+kind load docker-image spark-py:3.0.2 --name=jupyter-test
 ```
 
 ### Kubernetes
