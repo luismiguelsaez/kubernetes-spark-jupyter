@@ -81,4 +81,10 @@ kind load docker-image spark-py:3.0.2
 
     http://localhost:8888/tree?token=9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08
 
+- Copy dataset example file
+
+    ```
+    kubectl cp ./datasets/players_20.csv jupyter-all-spark-notebook-c5dc44cd9-kflxc:/data/dataset.csv
+    ```
+
 - From here, we can create a Python notebook from ```notebooks/simple-notebook.py```
