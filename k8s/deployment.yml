@@ -111,6 +111,11 @@ spec:
               memory: 512M
           ports:
             - containerPort: 8888
+          env:
+            - name: PYSPARK_PYTHON
+              value: python2
+            - name: PYSPARK_DRIVER_PYTHON
+              value: python2
           envFrom:
             - secretRef:
                 name: jupyter-access

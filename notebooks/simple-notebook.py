@@ -4,16 +4,18 @@ spark = SparkSession \
     .builder \
     .appName("SparkSessionTest") \
     .master('k8s://https://kubernetes.default.svc.cluster.local:443') \
-    .config("spark.submit.deployMode","cluster") \
-    .config("spark.kubernetes.container.image", "spark-py:3.0.2") \
+    .config("spark.submit.deployMode","client") \
+    .config("spark.kubernetes.container.image", "spark-py:3.0.2-py3-fix") \
     .config("spark.kubernetes.namespace","jupyter") \
     .config("spark.kubernetes.authenticate.driver.serviceAccountName","jupyter") \
     .config("spark.kubernetes.authenticate.caCertFile", "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt") \
     .config("spark.kubernetes.authenticate.oauthTokenFile", "/var/run/secrets/kubernetes.io/serviceaccount/token") \
-    .config("spark.driverEnv.PYSPARK_PYTHON","python3") \
-    .config("spark.executorEnv.PYSPARK_PYTHON","python3") \
+    .config("spark.executorEnv.PYSPARK_MAJOR_PYTHON_VERSION","3") \
     .config("spark.executor.instances", "2") \
+    .config("spark.executor.extraClassPath", "") \
+    .config("spark.executor.extraJavaOptions", "") \
     .config("spark.jars", "") \
+    .config("spark.files","") \
     .config("spark.driver.host", "jupyter-all-spark-driver.jupyter.svc.cluster.local") \
     .config("spark.driver.port", "29413") \
     .getOrCreate()
