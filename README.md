@@ -71,9 +71,7 @@ vi kubernetes/dockerfiles/spark/bindings/python/Dockerfile
 
 - Build fixed image
 
-```
-bin/docker-image-tool.sh -t 3.0.2-py3-fix -p kubernetes/dockerfiles/spark/bindings/python/Dockerfile build
-```
+Follow ```README.md``` steps from ```build``` directory
 
 - Add image to kind cluster
 
@@ -90,6 +88,10 @@ Exception: Python in worker has different version 3.7 than that in driver 3.8, P
 This error is not easy to fix, because we're using the official Jupyter image, built on top of ```Ubuntu 20.04.1``` base image with ```python 3.8``` installed, while the executors official Spark image is being built on top of ```Debian GNU/Linux 10``` with ```python 3.7```.
 
 At this time, Pyspark is only able to launch jobs in ```client``` mode, that enforces the driver process to run within the Jupyter container, so the only option to make this work is to build a fully customized Jupyter or workers image ( or both ).
+
+Base JDK images from Ubuntu 20.04:
+- 11-zulu-ubuntu
+- exoplatform/jdk:openjdk-11-ubuntu-2004
 
 ### Kubernetes
 

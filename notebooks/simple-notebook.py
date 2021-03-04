@@ -11,6 +11,7 @@ spark = SparkSession \
     .config("spark.kubernetes.authenticate.caCertFile", "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt") \
     .config("spark.kubernetes.authenticate.oauthTokenFile", "/var/run/secrets/kubernetes.io/serviceaccount/token") \
     .config("spark.executorEnv.PYSPARK_MAJOR_PYTHON_VERSION","3") \
+    .config("spark.executorEnv.PYSPARK_PYTHON","3") \
     .config("spark.executor.instances", "2") \
     .config("spark.executor.extraClassPath", "") \
     .config("spark.executor.extraJavaOptions", "") \

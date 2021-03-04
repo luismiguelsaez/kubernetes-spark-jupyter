@@ -101,7 +101,7 @@ spec:
       serviceAccountName: jupyter
       containers:
         - name: jupyter
-          image: jupyter/all-spark-notebook:latest
+          image: jupyter/all-spark-notebook:29edefbcb06a
           resources:
             requests:
               cpu: 125m

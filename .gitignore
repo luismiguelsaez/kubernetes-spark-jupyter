@@ -1,0 +1,2 @@
+# Ignore spark downloaded package
+**/spark-*/
