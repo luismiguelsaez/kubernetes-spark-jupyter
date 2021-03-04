@@ -36,18 +36,20 @@ RUN apt install -y build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss
     ./configure --enable-optimizations && \
     make -j 4 && \
     make altinstall && \
-    rm -rf Python-${PYTHON_BUILD_VERSION}* && \
+    cd .. && rm -rf Python-${PYTHON_BUILD_VERSION}* && \
     ln -sf /usr/local/bin/python3.8 /usr/bin/python3 && \
-    ln -sf /usr/local/bin/pip3 /usr/bin/pip3 && \
+    ln -sf /usr/local/bin/pip3.8 /usr/bin/pip3 && \
     pip3 install --upgrade pip setuptools && \
-    rm -r /root/.cache && rm -rf /var/cache/apt/* && \
-    apt remove -y build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev curl libbz2-dev
+    apt remove -y build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev curl libbz2-dev && \
+    rm -rf /var/cache/apt/*
 
 #RUN apt-get update && \
 #    apt install -y python3 python3-pip && \
 #    pip3 install --upgrade pip setuptools && \
 #    # Removed the .cache to save space
 #    rm -r /root/.cache && rm -rf /var/cache/apt/*
+
+RUN ln -s /usr/bin/python3 /usr/bin/python2
 
 COPY python/pyspark ${SPARK_HOME}/python/pyspark
 COPY python/lib ${SPARK_HOME}/python/lib
