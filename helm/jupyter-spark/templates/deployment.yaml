@@ -40,7 +40,7 @@ spec:
             - secretRef:
                 name: {{ $secret.name }}
             {{- end -}}
-          {{- if gt ( len .Values.secrets ) 0 }}
+          {{- end -}}
           {{- if gt ( len .Values.configMapFromFiles ) 0 }}
           volumeMounts:
             {{- range $cm := .Values.configMapFromFiles }}
