@@ -1,0 +1,21 @@
+---
+
+jupyter:
+  image:
+    name: jupyter/all-spark-notebook
+    tag: 29edefbcb06a
+
+configMapFromFiles:
+  - name: jupyter-config
+    dir: files/jupyter
+    pattern: "**.py"
+    mount: /etc/jupyter
+
+secrets:
+  - name: jupyter-access
+    toEnv: true
+    values:
+      JUPYTER_TOKEN: OWY4NmQwODE4ODRjN2Q2NTlhMmZlYWEwYzU1YWQwMTVhM2JmNGYxYjJiMGI4MjJjZDE1ZDZjMTViMGYwMGEwOA==
+      JUPYTER_GATEWAY_HTTP_USER: anVweXRlcg==
+      JUPYTER_GATEWAY_HTTP_PWD: anVweXRlcnB3ZA==
+      JUPYTER_LOGIN_PASS: dGVzdGluZw==

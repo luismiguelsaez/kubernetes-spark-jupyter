@@ -1,0 +1,58 @@
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  labels:
+    app: jupyter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jupyter
+  template:
+    metadata:
+      labels:
+        app: jupyter
+    spec:
+      serviceAccountName: jupyter
+      containers:
+        - name: jupyter
+          image: {{ print .Values.jupyter.image.name ":" .Values.jupyter.image.tag }}
+          resources:
+            requests:
+              cpu: 125m
+              memory: 128M
+            limits:
+              cpu: 500m
+              memory: 512M
+          ports:
+            - containerPort: 8888
+          env:
+            - name: PYSPARK_PYTHON
+              value: python2
+            - name: PYSPARK_DRIVER_PYTHON
+              value: python2
+          {{- if gt ( len .Values.secrets ) 0 }}
+          envFrom:
+            {{- range $secret := .Values.secrets }}
+            - secretRef:
+                name: {{ $secret.name }}
+            {{- end -}}
+          {{- if gt ( len .Values.secrets ) 0 }}
+          {{- if gt ( len .Values.configMapFromFiles ) 0 }}
+          volumeMounts:
+            {{- range $cm := .Values.configMapFromFiles }}
+            - name: {{ $cm.name }}
+              mountPath: {{ $cm.mount }}
+            {{- end -}}
+          {{- end -}}
+      {{- if gt ( len .Values.configMapFromFiles ) 0 }}
+      volumes:
+        {{- range $cm := .Values.configMapFromFiles }}
+        - name: {{ $cm.name }}
+          configMap:
+            name: {{ $cm.name }}
+        {{- end -}}
+      {{- end -}}

@@ -1,0 +1,11 @@
+{{- if gt ( len .Values.configMapFromFiles ) 0 }}
+{{- range $cm := .Values.configMapFromFiles }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $cm.name }}
+data:
+  {{- ( $.Files.Glob ( print $cm.dir "/" $cm.pattern ) ).AsConfig | nindent 2 }}
+{{- end }}
+{{- end }}
