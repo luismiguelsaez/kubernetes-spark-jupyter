@@ -3,7 +3,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Chart.Name }}
+  name: jupyter-notebook
+  namespace: {{ $.Values.namespace }}
   labels:
     app: jupyter
 spec:

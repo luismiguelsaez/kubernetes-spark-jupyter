@@ -1,5 +1,7 @@
 ---
 
+namespace: jupyter
+
 jupyter:
   image:
     name: jupyter/all-spark-notebook
@@ -20,5 +22,5 @@ secrets:
       JUPYTER_GATEWAY_HTTP_PWD: jupyterpass
       JUPYTER_LOGIN_PASS: testing
 
-envVars:
-  JUPYTER_LISTEN_PORT: 8888
+envVars: []
+  #JUPYTER_LISTEN_PORT: 8888

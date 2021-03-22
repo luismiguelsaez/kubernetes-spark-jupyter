@@ -5,6 +5,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ $cm.name }}
+  namespace: {{ $.Values.namespace }}
 data:
   {{- ( $.Files.Glob ( print $cm.dir "/" $cm.pattern ) ).AsConfig | nindent 2 }}
 {{- end }}
