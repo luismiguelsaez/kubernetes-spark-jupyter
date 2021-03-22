@@ -29,11 +29,13 @@ spec:
               memory: 512M
           ports:
             - containerPort: 8888
+          {{- if gt ( len .Values.envVars ) 0 }}
           env:
-            - name: PYSPARK_PYTHON
-              value: python2
-            - name: PYSPARK_DRIVER_PYTHON
-              value: python2
+            {{- range $name, $value := .Values.envVars }}
+            - name: {{ $name }}
+              value: {{ $value }}
+            {{- end }}
+          {{- end -}}
           {{- if gt ( len .Values.secrets ) 0 }}
           envFrom:
             {{- range $secret := .Values.secrets }}

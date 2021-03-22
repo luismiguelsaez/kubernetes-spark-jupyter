@@ -8,7 +8,7 @@ from notebook.auth import passwd
 
 c = get_config()  # noqa: F821
 c.NotebookApp.ip = '0.0.0.0'
-c.NotebookApp.port = 8888
+c.NotebookApp.port = os.environ['JUPYTER_LISTEN_PORT'] if "JUPYTER_LISTEN_PORT" in os.environ else 8888
 c.NotebookApp.open_browser = False
 
 if 'JUPYTER_LOGIN_PASS' in os.environ:
