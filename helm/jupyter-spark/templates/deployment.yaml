@@ -37,8 +37,10 @@ spec:
           {{- if gt ( len .Values.secrets ) 0 }}
           envFrom:
             {{- range $secret := .Values.secrets }}
+            {{- if $secret.toEnv }}
             - secretRef:
                 name: {{ $secret.name }}
+            {{- end -}}
             {{- end -}}
           {{- end -}}
           {{- if gt ( len .Values.configMapFromFiles ) 0 }}
