@@ -49,8 +49,11 @@ spec:
           {{- if gt ( len .Values.configMapFromFiles ) 0 }}
           volumeMounts:
             {{- range $cm := .Values.configMapFromFiles }}
+            {{- range $file, $_ := $.Files.Glob ( print $cm.dir "/" $cm.pattern ) }}
             - name: {{ $cm.name }}
               mountPath: {{ $cm.mount }}
+              subPath: {{ base $file }}
+            {{- end -}}
             {{- end -}}
           {{- end -}}
       {{- if gt ( len .Values.configMapFromFiles ) 0 }}
