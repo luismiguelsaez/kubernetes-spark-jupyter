@@ -22,5 +22,5 @@ secrets:
       JUPYTER_GATEWAY_HTTP_PWD: jupyterpass
       JUPYTER_LOGIN_PASS: testing
 
-envVars: []
+envVars: {}
   #JUPYTER_LISTEN_PORT: 8888

@@ -29,7 +29,7 @@ spec:
               cpu: 500m
               memory: 512M
           ports:
-            - containerPort: 8888
+            - containerPort: {{ if hasKey .Values.envVars "JUPYTER_LISTEN_PORT" }}{{ .Values.envVars.JUPYTER_LISTEN_PORT }}{{ else }}{{ print 8888 }}{{ end }}
           {{- if gt ( len .Values.envVars ) 0 }}
           env:
             {{- range $name, $value := .Values.envVars }}
