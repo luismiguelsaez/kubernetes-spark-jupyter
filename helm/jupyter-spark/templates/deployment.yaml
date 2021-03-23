@@ -51,7 +51,7 @@ spec:
             {{- range $cm := .Values.configMapFromFiles }}
             {{- range $file, $_ := $.Files.Glob ( print $cm.dir "/" $cm.pattern ) }}
             - name: {{ $cm.name }}
-              mountPath: {{ $cm.mount }}
+              mountPath: {{ print $cm.mount "/" ( base $file ) }}
               subPath: {{ base $file }}
             {{- end -}}
             {{- end -}}
