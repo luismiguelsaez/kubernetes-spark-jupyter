@@ -50,6 +50,7 @@ RUN apt install -y build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss
 #    rm -r /root/.cache && rm -rf /var/cache/apt/*
 
 RUN ln -s /usr/bin/python3 /usr/bin/python2
+RUN ln -s /usr/bin/python3 /usr/bin/python
 
 COPY python/pyspark ${SPARK_HOME}/python/pyspark
 COPY python/lib ${SPARK_HOME}/python/lib
