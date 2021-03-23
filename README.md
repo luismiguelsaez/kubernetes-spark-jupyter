@@ -42,25 +42,13 @@ nodes:
 EOF
 ```
 
-### Image build
-
-Executors image is built from official Dockerfiles
-
-```
-curl -sL https://apache.brunneis.com/spark/spark-3.0.2/spark-3.0.2-bin-hadoop2.7.tgz -O-
-tar -xf spark-3.0.2-bin-hadoop2.7.tgz
-
-spark-3.0.2-bin-hadoop2.7/bin/docker-image-tool.sh -t 3.0.2 -p kubernetes/dockerfiles/spark/bindings/python/Dockerfile build
-kind load docker-image spark-py:3.0.2 --name=jupyter-test
-```
-
-### Python3 fix
+### Python executors image build
 
 While launching Pyspark jobs from Jupyter, where python version is 3.x, we'll get version mismatch errors because executors image has python 2.x as default. This happens because, in pyspark client mode, the driver runs in Jupyter container ( based on Ubuntu 20.04 ) and the executors runs on provided executor images ( built on top of Debian 10 ); those images have different python versions.
 
 - Build fixed image
 
-Follow ```README.md``` steps from ```build``` directory. From there, we will build a python bindings custom image, building the needed python version from code on the executor image.
+Follow [README.md](build/README.md) steps from ```build``` directory. From there, we will build a python bindings custom image, building the needed python version from code on the executor image.
 
 ### Kubernetes
 
@@ -70,13 +58,19 @@ Follow ```README.md``` steps from ```build``` directory. From there, we will bui
     kubectl wait --namespace ingress-nginx --for=condition=ready pod --selector=app.kubernetes.io/component=controller --timeout=90s
     ```
 
-- Jupyter resources
+- Jupyter resources ( static )
 
     ```
     kubectl apply -f k8s/rbac.yml
     kubectl apply -f k8s/deployment.yml
     kubectl wait -n jupyter --for=condition=ready pod --selector=app=jupyter --timeout=240s
     ```
+
+- Jupyter resources from Helm chart
+
+  ```
+  helm install jupyter-notebook helm/jupyter-spark
+  ```
 
 ### Connect to Jupyter console
 
